@@ -8,10 +8,6 @@ DBUSER = "admin"
 DBPASS = os.getenv('DBPASS')
 DB = "esd4uq"
 
-#bring all of these elements together into a single DB connection string, and create a cursor using that
-db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
-cur=db.cursor()
-
 app = FastAPI()
 
 def read_root():
@@ -27,6 +23,8 @@ app.add_middleware(
 
 @app.get('/genres')
 def get_genres():
+    db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+    cur=db.cursor()
     query = "SELECT * FROM genres ORDER BY genreid;"
     try:    
         cur.execute(query)
@@ -35,12 +33,18 @@ def get_genres():
         json_data=[]
         for result in results:
             json_data.append(dict(zip(headers,result)))
+        cur.close()
+        db.close()
         return(json_data)
     except Error as e:
+        cur.close()
+        db.close()
         return {"Error": "MySQL Error: " + str(e)}
     
 @app.get('/songs')
 def get_songs():
+    db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
+    cur=db.cursor()
     query = """
     SELECT 
         songs.title AS title, 
@@ -62,6 +66,10 @@ def get_songs():
         headers = [x[0] for x in cur.description]
         results = cur.fetchall()
         json_data = [dict(zip(headers, result)) for result in results]
+        cur.close()
+        db.close()
         return json_data
     except mysql.connector.Error as e:
+        cur.close()
+        db.close()
         return {"Error": "Failed to fetch songs"}
