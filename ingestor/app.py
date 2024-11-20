@@ -28,7 +28,7 @@ app.debug = True
 
 # base URL for accessing the files
 ## UPDATE NEXT LINE
-baseurl = 'http://esd4uq-dp1-spotify.s3-website-us-east-1.amazonaws.com'
+baseurl = 'http://esd4uq-dp1-spotify.s3-website-us-east-1.amazonaws.com/'
 
 # database things
 #DBHOST = os.getenv('DBHOST')
