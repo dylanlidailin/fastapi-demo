@@ -63,5 +63,5 @@ def get_songs():
         results = cur.fetchall()
         json_data = [dict(zip(headers, result)) for result in results]
         return json_data
-    except Error as e:
-        return {"Error": "MySQL Error: " + str(e)}
+    except mysql.connector.Error as e:
+        return {"Error": "Failed to fetch songs"}
