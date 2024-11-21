@@ -1,5 +1,6 @@
 import os
 import chalice
+import boto3
 from chalice import Chalice
 
 # s3 things
