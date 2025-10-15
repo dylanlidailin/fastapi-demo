@@ -1,11 +1,16 @@
 mysql-connector-python
-uvicorn
-fastapi[standard]
+#uvicorn
+#fastapi[standard]
 typing
 pydantic
 boto3
-mysql-connector-python
+#mysql-connector-python
 chalice
 # pymongo
 # dnspython
 # mysqlclient
+
+fastapi[standard]==0.115.5
+mysql-connector-python==9.4.0
+uvicorn==0.37.0
+python-dotenv==1.0.0
